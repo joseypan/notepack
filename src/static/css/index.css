@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#text-area{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+}
