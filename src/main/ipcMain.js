@@ -3,7 +3,7 @@
 * @author PanXumin
 * @date 2021-01-21
 */
-const { BrowserWindow,Menu, shell, ipcMain } = require('electron')
+const { BrowserWindow,Menu, shell, ipcMain, app } = require('electron')
 // 上部菜单
 const template = [
     {
@@ -11,8 +11,9 @@ const template = [
         submenu: [
             {
               label: '新建',
+              accelerator: 'Ctrl+o',
               click: () => {
-                  console.log('新建')
+                BrowserWindow.getFocusedWindow().webContents.send('action', 'new')
               }  
             },
             {
@@ -33,7 +34,18 @@ const template = [
             {
                 label: '打印',
                 click: () => {
-                    console.log('打印')
+                    // 通过WebContents实现
+                    console.log(1111)
+                    BrowserWindow.getFocusedWindow().webContents.print()
+                }
+            },
+            {
+                label: '退出',
+                click: () => {
+                    BrowserWindow.getFocusedWindow().webContents.send('action', 'quit')
+                    ipcMain.on('quit',() => {
+                        app.quit()
+                    })
                 }
             }
         ]
